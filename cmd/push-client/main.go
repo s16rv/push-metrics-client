@@ -22,7 +22,11 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	m.AppendLabels(labels)
+
+	err = m.AppendLabels(labels)
+	if err != nil {
+		panic(err)
+	}
 
 	encoded, err := m.Encode()
 	if err != nil {
