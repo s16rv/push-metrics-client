@@ -12,6 +12,7 @@ require (
 
 require (
 	github.com/alexflint/go-scalar v1.1.0 // indirect
+	github.com/jasonlvhit/gocron v0.0.1
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 )
