@@ -37,6 +37,20 @@ func (m *Metrics) Parse() error {
 	return nil
 }
 
+func (m *Metrics) AppendLabels(labels []*dto.LabelPair) error {
+	if m.MetricFamilies == nil {
+		return errors.New("Metrics families doesn't exist, parse first")
+	}
+
+	for _, mf := range m.MetricFamilies {
+		for _, mv := range mf.Metric {
+			mv.Label = append(mv.Label, labels...)
+		}
+	}
+
+	return nil
+}
+
 func (m *Metrics) Encode() (string, error) {
 	if m.MetricFamilies == nil {
 		return "", errors.New("Metrics families doesn't exist, parse first")
@@ -56,18 +70,4 @@ func (m *Metrics) Encode() (string, error) {
 	}
 
 	return encoded, nil
-}
-
-func (m *Metrics) AppendLabels(labels []*dto.LabelPair) error {
-	if m.MetricFamilies == nil {
-		return errors.New("Metrics families doesn't exist, parse first")
-	}
-
-	for _, mf := range m.MetricFamilies {
-		for _, mv := range mf.Metric {
-			mv.Label = append(mv.Label, labels...)
-		}
-	}
-
-	return nil
 }

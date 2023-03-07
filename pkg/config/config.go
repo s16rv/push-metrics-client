@@ -6,18 +6,18 @@ import (
 )
 
 type Config struct {
-	HTTPTimeout   int    `arg:"env:HTTP_TIMEOUT"`
-	MetricsUrl    string `arg:"env:METRICS_URL"`
-	DOMetadataUrl string `arg:"env:DO_METADATA_URL"`
+	MetricsUrl     string `arg:"env:METRICS_URL"`
+	DOMetadataUrl  string `arg:"env:DO_METADATA_URL"`
+	PushgatewayUrl string `arg:"env:PUSHGATEWAY_URL"`
 }
 
 func NewConfig() Config {
 	_ = godotenv.Load()
 
 	c := Config{
-		HTTPTimeout:   5000,
-		MetricsUrl:    "http://127.0.0.1:9100",
-		DOMetadataUrl: "http://169.254.169.254",
+		MetricsUrl:     "http://127.0.0.1:9100",
+		DOMetadataUrl:  "http://169.254.169.254",
+		PushgatewayUrl: "http://127.0.0.1:9091",
 	}
 
 	arg.MustParse(&c)
