@@ -11,11 +11,11 @@ type Pushgateway struct {
 	Instance string
 }
 
-func NewPushgateway(config config.Config, instance string) Pushgateway {
+func NewPushgateway(config config.Config) Pushgateway {
 	return Pushgateway{
 		Url:      config.PushgatewayUrl,
 		Job:      "pushgateway",
-		Instance: instance,
+		Instance: config.InstanceName,
 	}
 }
 

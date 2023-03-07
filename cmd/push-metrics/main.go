@@ -34,7 +34,7 @@ func task(config config.Config) {
 		log.Fatalln(err)
 	}
 
-	pg := pushgateway.NewPushgateway(config, "doagent")
+	pg := pushgateway.NewPushgateway(config)
 	err = pg.PushMetrics(encoded)
 	if err != nil {
 		log.Fatalln(err)
