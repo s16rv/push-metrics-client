@@ -44,3 +44,30 @@ func (m Metrics) Parse() (map[string]*dto.MetricFamily, error) {
 
 	return mf, nil
 }
+
+func Encode(mf map[string]*dto.MetricFamily) (string, error) {
+	var buff bytes.Buffer
+	textEncoder := expfmt.NewEncoder(&buff, expfmt.FmtText)
+
+	encoded := ""
+	for _, value := range mf {
+		err := textEncoder.Encode(value)
+		if err != nil {
+			return "", err
+		}
+		encoded += buff.String()
+		buff.Reset()
+	}
+
+	return encoded, nil
+}
+
+func AppendLabels(mf map[string]*dto.MetricFamily, labels []*dto.LabelPair) map[string]*dto.MetricFamily {
+	for _, v := range mf {
+		for _, mv := range v.Metric {
+			mv.Label = append(mv.Label, labels...)
+		}
+	}
+
+	return mf
+}
