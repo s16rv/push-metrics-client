@@ -46,7 +46,10 @@ func main() {
 	config := config.NewConfig()
 
 	s := gocron.NewScheduler()
-	s.Every(config.PushInterval).Seconds().Do(task, config)
+	err := s.Every(config.PushInterval).Seconds().Do(task, config)
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	<-s.Start()
 }

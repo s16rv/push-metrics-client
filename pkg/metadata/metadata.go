@@ -1,10 +1,10 @@
 package metadata
 
 import (
-	"github.com/golang/protobuf/proto"
 	dto "github.com/prometheus/client_model/go"
 	"github.com/s16rv/push-metrics-client/pkg/config"
 	"github.com/s16rv/push-metrics-client/pkg/request"
+	"google.golang.org/protobuf/proto"
 )
 
 const (

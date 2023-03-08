@@ -1,7 +1,6 @@
 package request
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -30,7 +29,7 @@ func PostText(url string, body string) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != 200 {
-		return errors.New(fmt.Sprintf("Error code %d, failed to post", resp.StatusCode))
+		return fmt.Errorf("Error code %d, failed to post", resp.StatusCode)
 	}
 
 	return nil

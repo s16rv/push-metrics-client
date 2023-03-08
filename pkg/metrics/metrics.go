@@ -2,7 +2,7 @@ package metrics
 
 import (
 	"bytes"
-	"errors"
+	"fmt"
 
 	dto "github.com/prometheus/client_model/go"
 	"github.com/prometheus/common/expfmt"
@@ -39,7 +39,7 @@ func (m *Metrics) Parse() error {
 
 func (m *Metrics) AppendLabels(labels []*dto.LabelPair) error {
 	if m.MetricFamilies == nil {
-		return errors.New("Metrics families doesn't exist, parse first")
+		return fmt.Errorf("Metrics families doesn't exist, parse first")
 	}
 
 	for _, mf := range m.MetricFamilies {
@@ -53,7 +53,7 @@ func (m *Metrics) AppendLabels(labels []*dto.LabelPair) error {
 
 func (m *Metrics) Encode() (string, error) {
 	if m.MetricFamilies == nil {
-		return "", errors.New("Metrics families doesn't exist, parse first")
+		return "", fmt.Errorf("Metrics families doesn't exist, parse first")
 	}
 
 	var buff bytes.Buffer
