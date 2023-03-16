@@ -15,29 +15,34 @@ func task(config config.Config) {
 	m := metrics.NewMetrics(config)
 	err := m.Parse()
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
 	}
 
 	md := metadata.NewMetadata(config)
 	labels, err := md.GetMetadataLabels()
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
 	}
 
 	err = m.AppendLabels(labels)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
 	}
 
 	encoded, err := m.Encode()
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
 	}
 
 	pg := pushgateway.NewPushgateway(config)
 	err = pg.PushMetrics(encoded)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
+		return
 	}
 	log.Println("Finished!")
 }
